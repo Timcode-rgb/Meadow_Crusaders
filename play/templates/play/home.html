@@ -1,0 +1,27 @@
+{% extends 'play/base.html' %}
+{% load static %} 
+
+{% block content %}
+<div class="character">
+    {% for chara in charas %}
+        <div>
+            <img src="{% static chara.photo %}" alt="{{ chara.nom }}">
+            <h2><a href="{% url 'chara_detail' nom=chara.nom %}">{{ chara.nom }}</a></h2>
+            <p>Type : {{ chara.type }}</p>
+            <p>État : {{ chara.etat }}</p>
+            <p>Lieu : {{ chara.lieu }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="character">
+    {% for lieu in lieux %}
+        <div>
+            <img src="{% static lieu.photo %}" alt="Lieu {{ lieu.id }}">
+            <h2>{{ lieu.id }}</h2>
+            <p>Disponibilité : {{ lieu.disponibilite }}</p>
+            <p>Capacité : {{ lieu.capacite }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

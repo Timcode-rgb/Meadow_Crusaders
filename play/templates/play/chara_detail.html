@@ -1,0 +1,43 @@
+{% extends 'play/base.html' %}
+{% load static %} 
+
+{% block content %}
+<div class="page-header">
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+</div>
+<div class="character">
+    <img src="{% static chara.photo %}" alt="{{ chara.nom }}">
+    <h2>{{ chara.nom }}</h2>
+    <p>Type : {{ chara.type }}</p>
+    <p>État : {{ chara.etat }}</p>
+    <p>Lieu : {{ chara.lieu }}</p>
+    <p>Inventaire : 
+        <table>
+            <thead>
+                <tr>
+                    <th>Objet</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in chara.inventaire %}
+                    <tr>
+                        <td>{{ item.0 }}</td>
+                        <td>{{ item.1 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </p>
+</div>
+
+<div class="page-header">
+    <form method="POST" class="post-form">{% csrf_token %}
+        <b>Changer :</b> {{ form.as_ul }}
+        <button type="submit">OK</button>
+        <a href="{% url 'home' %}">Retour</a>
+    </form>
+</div>
+{% endblock %}
